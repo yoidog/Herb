@@ -6,7 +6,7 @@ Herb is a interpreted language made in Java.
 Temporary text -> "Herb is still work in progress".
 
 ```
-write "Hello Herb Language!"
+write "Hello Herb Language!";
 ```
 To interpret the source file.
 ```
