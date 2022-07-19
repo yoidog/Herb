@@ -1,0 +1,12 @@
+// Ignore this CauseScript file!!
+// THIS IS NOT ASSOSCIATED WITH THE SOURCE CODE!
+#include <iostream>
+#include "CauseScript.h"
+using namespace std;
+int main ()
+{
+  integer("equ", 544637221);
+  str("interpreter", "Herb");
+  str("language", "Java");
+  str("cancel", "CHerb");
+}
