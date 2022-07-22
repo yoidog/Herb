@@ -1,16 +1,70 @@
 package herbLang.herb;
 
-class Interpreter implements Expr.Visitor<Object> {
-	void interpret(Expr expression) {
+import java.util.List;
+
+import herbLang.herb.Expr.Grouping;
+
+class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
+	private Environment environment = new Environment();
+	void interpret(List<Stmt> statements) {
 		try {
-			Object value = evaluate(expression);
-			System.out.println(stringify(value));
+			for (Stmt statement : statements) {
+				execute(statement);
+			}
 		} catch (RuntimeError error) {
 			Herb.runtimeError(error);
 		}
 	}
 	private Object evaluate(Expr expr) {
 		return expr.accept(this);
+	}
+	private void execute(Stmt stmt) {
+		stmt.accept(this);
+	}
+	void executeBlock(List<Stmt> statements,
+            Environment environment) {
+				Environment previous = this.environment;
+				try {
+					this.environment = environment;
+
+					for (Stmt statement : statements) {
+						execute(statement);
+					}
+				} finally {
+					this.environment = previous;
+				}
+	}
+	@Override
+	public Void visitBlockStmt(Stmt.Block stmt) {
+		executeBlock(stmt.statements, new Environment(environment));
+		return null;
+	}
+	@Override
+	public Void visitExpressionStmt(Stmt.Expression stmt) {
+		evaluate(stmt.expression);
+		return null;
+	}
+	@Override
+	public Void visitWriteStmt(Stmt.Write stmt) {
+		Object value = evaluate(stmt.expression);
+		System.out.println(stringify(value));
+		return null;
+	}
+	@Override
+	public Void visitVarStmt(Stmt.Var stmt) {
+		Object value = null;
+		if (stmt.initializer != null) {
+			value = evaluate(stmt.initializer);
+		}
+		
+		environment.define(stmt.name.lexeme, value);
+		return null;
+	}
+	@Override
+	public Object visitAssignExpr(Expr.Assign expr) {
+		Object value = evaluate(expr.value);
+		environment.assign(expr.name, value);
+		return value;
 	}
 	@Override
   public Object visitBinaryExpr(Expr.Binary expr) {
@@ -19,19 +73,19 @@ class Interpreter implements Expr.Visitor<Object> {
 
     switch (expr.operator.type) {
 		case GREATER:
-		checkNumberOperand(expr.operator, left, right);
+		checkNumberOperands(expr.operator, left, right);
 			return (double)left > (double)right;
 		case GREATER_EQUAL:
-		checkNumberOperand(expr.operator, left, right);
+		checkNumberOperands(expr.operator, left, right);
 			return (double)left >= (double)right;
 		case LESS:
-		checkNumberOperand(expr.operator, left, right);
+		checkNumberOperands(expr.operator, left, right);
 			return (double)left < (double)right;
 		case LESS_EQUAL:
-		checkNumberOperand(expr.operator, left, right);
+		checkNumberOperands(expr.operator, left, right);
 			return (double)left <= (double)right;
       case MINUS:
-	  checkNumberOperand(expr.operator, left, right);
+	  checkNumberOperands(expr.operator, left, right);
         return (double)left - (double)right;
 	case PLUS:
         if (left instanceof Double && right instanceof Double) {
@@ -45,10 +99,10 @@ class Interpreter implements Expr.Visitor<Object> {
         throw new RuntimeError(expr.operator,
 			"Operands must be two numbers or two strings.");
       case SLASH:
-	  checkNumberOperand(expr.operator, left, right);
+	  checkNumberOperands(expr.operator, left, right);
         return (double)left / (double)right;
       case STAR:
-	  checkNumberOperand(expr.operator, left, right);
+	  checkNumberOperands(expr.operator, left, right);
         return (double)left * (double)right;
 	  case BANG_EQUAL: return !isEqual(left, right);
 	  case EQUAL_EQUAL: return isEqual(left, right);
@@ -72,12 +126,17 @@ class Interpreter implements Expr.Visitor<Object> {
 	    checkNumberOperand(expr.operator, right);
         return -(double)right;
     }
-	private void checkNumberOperand(Token operator, Object operand) {
-		if (operand instanceof Double) return;
-		throw new RuntimeError(operator, "An operand must be a number.");
+    
     // Unreachable.
     return null;
   }
+	@Override public Object visitVariableExpr(Expr.Variable expr) {
+		return environment.get(expr.name);
+	}
+	private void checkNumberOperand(Token operator, Object operand) {
+        if (operand instanceof Double) return;
+        throw new RuntimeError(operator, "Operand must be a number.");
+    }
   private void checkNumberOperands(Token operator,
                                    Object left, Object right) {
     if (left instanceof Double && right instanceof Double) return;
@@ -107,5 +166,10 @@ class Interpreter implements Expr.Visitor<Object> {
 		}
 		
 		return object.toString();
+	}
+	@Override
+	public Object visitGroupingExpr(Grouping expr) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
