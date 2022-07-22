@@ -1,4 +1,4 @@
-package herbLang.lang;
+package herbLang.herb;
 
 class RuntimeError extends RuntimeException {
 	final Token token;
