@@ -1,14 +1,16 @@
-package herbLang.lang;
+package herbLang.herb;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static herbLang.TokenType.*;
+import static herbLang.herb.TokenType.*;
 
 class Scanner {
 	private static final Map<String, TokenType> keywords;
+	private final String source;
+	private final List<Token> tokens = new ArrayList<>();
 
 	static {
 		keywords = new HashMap<>();
@@ -17,7 +19,7 @@ class Scanner {
 		keywords.put("else",   ELSE);
 		keywords.put("false",  FALSE);
 		keywords.put("for",    FOR);
-		keywords.put("fun",    FUN);
+		keywords.put("func",   FUNC);
 		keywords.put("if",     IF);
 		keywords.put("nul",    NUL);
 		keywords.put("or",     OR);
@@ -29,8 +31,6 @@ class Scanner {
 		keywords.put("var",    VAR);
 		keywords.put("while",  WHILE);
 	}
-	private final String source;
-	private final List<Token> tokens  = newArrayList<>();
 	private int start = 0;
 	private int current = 0;
 	private int line = 1;
@@ -64,7 +64,7 @@ class Scanner {
 			case '!':
 				addToken(match('=') ? BANG_EQUAL : BANG);
 				break;
-			case '=';
+			case '=':
 				addToken(match('=') ? EQUAL_EQUAL : EQUAL);
 				break;
 			case '<':
@@ -129,7 +129,7 @@ class Scanner {
   }
 	private void string() {
 		while (peek() != '"' && !isAtEnd()) {
-			if (peek() == `\n`) line++;
+			if (peek() == '\n') line++;
 			advance();
 		}
 		
