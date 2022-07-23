@@ -1,0 +1,1 @@
+java -cp bin/herbLang/herb herbLang.herb.Herb
