@@ -1,14 +1,34 @@
 # Herb
 ![herblang](https://user-images.githubusercontent.com/68444929/179524826-5a5b4e32-940c-4da2-bf4c-f5b00608107d.png)
 
-Herb is a interpreted language made in Java.
+Herb is an interpreted language made in Java.
 
-Temporary text -> "Herb is still work in progress".
+Weakly typed and simple language, C and Javascript like syntax.
 
+# Sample script
 ```
-write "Hello Herb Language!";
-```
-To interpret the source file.
-```
-Herb helloherb.herb
+write "Hello World!";
+write 5+2;
+
+var a = 10;
+var b = 20;
+write a;
+write b;
+b = 50;
+write b;
+write b = 100;
+
+var i = 0;
+
+while (i < 10) { i = i + 1; write i;}
+
+var c = 50;
+var d = 50;
+if (c == d) { write "Variable c is equal to variable d.";}
+
+var e = 5;
+var f = 10;
+if (e != f) { write "Variable e is not equal to variable f.";}
+
+for (var g = 0; g < 3;) { g = g + 1; write g;}
 ```
