@@ -7,7 +7,24 @@ import herbLang.herb.Expr.Grouping;
 
 class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 	final Environment globals = new Environment();
-	private Environment environment = new Environment();
+	private Environment environment = globals;
+	
+	Interpreter() {
+		globals.define("clock", new HerbCallable() {
+			@Override
+      public int arity() { return 0; }
+
+      @Override
+      public Object call(Interpreter interpreter,
+                         List<Object> arguments) {
+        return (double)System.currentTimeMillis() / 1000.0;
+      }
+
+      @Override
+      public String toString() { return "<native fn>"; }
+    });
+  }
+	
 	void interpret(List<Stmt> statements) {
 		try {
 			for (Stmt statement : statements) {
@@ -43,6 +60,12 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 	@Override
 	public Void visitExpressionStmt(Stmt.Expression stmt) {
 		evaluate(stmt.expression);
+		return null;
+	}
+	@Override
+	public Void visitFunctionStmt(Stmt.Function stmt) {
+		HerbFunction function = new HerbFunction(stmt);
+		environment.define(stmt.name.lexeme, function);
 		return null;
 	}
 	@Override
@@ -145,6 +168,9 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 	      }
 
 	    HerbCallable function = (HerbCallable)callee;
+		if (arguments.size() != function.arity()) {
+			throw new RuntimeError(expr.paren, "Expected " + function.arity() + " arguments BUT got " + arguments.size() + ".");
+		}
 	    return function.call(this, arguments);
 	  }
 	@Override
