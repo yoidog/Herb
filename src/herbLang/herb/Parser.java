@@ -28,6 +28,7 @@ class Parser {
 	}
 	private Stmt declaration() {
 		try {
+			if (match(FUNC)) return function("function");
 			if (match(VAR)) return varDeclaration();
 			
 			return statement();
@@ -45,6 +46,34 @@ class Parser {
 		
 		return expressionStatement();
 	}
+	
+	private Stmt expressionStatement() {
+		Expr expr = expression();
+		consume(SEMICOLON, "Expected ';' / semicolon / end of code symbol after expression.");
+		return new Stmt.Expression(expr);
+	}
+	
+	private Stmt.Function function(String kind) {
+		Token name = consume(IDENTIFIER, "Expected " + kind + " name.");
+		consume(LEFT_PAREN, "Expected '(' after " + kind + " name.");
+		List<Token> parameters = new ArrayList<>();
+		if (!check(RIGHT_PAREN)) {
+			do {
+				if (parameters.size() >= 255) {
+					error(peek(), "Parameters limit is 255, can't have more than 255 parameters.");
+				}
+				
+				parameters.add(
+					consume(IDENTIFIER, "Expected parameter name."));
+			} while (match(COMMA));
+		}
+		consume(RIGHT_PAREN, "Expected ')' after parameters.");
+		
+		consume(LEFT_BRACE, "Expected '{' before " + kind + " body.");
+		List<Stmt> body = block();
+		return new Stmt.Function(name, parameters, body);
+	}
+	
 	private Stmt forStatement() {
 		consume(LEFT_PAREN, "Expected '(' after statement `for`.");
 		
@@ -71,18 +100,17 @@ class Parser {
 		Stmt body = statement();
 		
 		if (increment != null) {
-			body = new Stmt.Block(
-				Arrays.asList(
-					body,
-					new Stmt.Expression(increment)));
-		}
-		
-		if (condition == null) condition = new Expr.Literal(true);
-		body = new Stmt.While(condition, body);
-		
-		if (initializer != null) {
-			body = new Stmt.Block(Arrays.asList(initializer, body));
-		}
+            body = new Stmt.Block(Arrays.asList(
+                body,
+                new Stmt.Expression(increment)));
+        }
+
+        if (condition == null) condition = new Expr.Literal(true);
+        body = new Stmt.While(condition, body);
+
+        if (initializer != null) {
+            body = new Stmt.Block(Arrays.asList(initializer, body));
+        }
 		
 		return body;
 	}
@@ -123,21 +151,16 @@ class Parser {
 
         return new Stmt.While(condition, body);
     }
-	private Stmt expressionStatement() {
-		Expr expr = expression();
-		consume(SEMICOLON, "Expected ';' / semicolon / end of code symbol after expression.");
-		return new Stmt.Expression(expr);
-	}
 	private List<Stmt> block() {
-	    List<Stmt> statements = new ArrayList<>();
+        List<Stmt> statements = new ArrayList<>();
 
-	    while (!check(RIGHT_BRACE) && !isAtEnd()) {
-	      statements.add(declaration());
-	    }
+        while (!check(RIGHT_BRACE) && !isAtEnd()) {
+            statements.add(declaration());
+        }
 
-	    consume(RIGHT_BRACE, "Expected '}' after block.");
-	    return statements;
-	  }
+        consume(RIGHT_BRACE, "Expected '}' after block.");
+        return statements;
+    }
 	private Expr assignment() {
 		Expr expr = or();
 		
@@ -231,7 +254,35 @@ class Parser {
       return new Expr.Unary(operator, right);
     }
 
-    return primary();
+    return call();
+  }
+  private Expr finishCall(Expr callee) {
+	  List<Expr> arguments = new ArrayList<>();
+	  if (!check(RIGHT_PAREN)) {
+		  do {
+			  if (arguments.size() >= 255) {
+				  error(peek(), "Arguments limit is 255, can't have more than 255 arguments.");
+			  }
+			  arguments.add(expression());
+		  } while (match(COMMA));
+	  }
+	  
+	  Token paren = consume(RIGHT_PAREN, "Expected ')' after arguments.");
+	  
+	  return new Expr.Call(callee, paren, arguments);
+  }
+  private Expr call() {
+	  Expr expr = primary();
+	  
+	  while (true) {
+		  if (match(LEFT_PAREN)) {
+			  expr = finishCall(expr);
+		  } else {
+			  break;
+		  }
+	  }
+	  
+	  return expr;
   }
 	private Expr primary() {
     if (match(FALSE)) return new Expr.Literal(false);
