@@ -1,10 +1,12 @@
 package herbLang.herb;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import herbLang.herb.Expr.Grouping;
 
 class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
+	final Environment globals = new Environment();
 	private Environment environment = new Environment();
 	void interpret(List<Stmt> statements) {
 		try {
@@ -21,19 +23,18 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 	private void execute(Stmt stmt) {
 		stmt.accept(this);
 	}
-	void executeBlock(List<Stmt> statements,
-            Environment environment) {
-				Environment previous = this.environment;
-				try {
-					this.environment = environment;
+	void executeBlock(List<Stmt> statements, Environment environment) {
+        Environment previous = this.environment;
+        try {
+            this.environment = environment;
 
-					for (Stmt statement : statements) {
-						execute(statement);
-					}
-				} finally {
-					this.environment = previous;
-				}
-	}
+            for (Stmt statement : statements) {
+                execute(statement);
+            }
+        } finally {
+            this.environment = previous;
+        }
+    }
 	@Override
 	public Void visitBlockStmt(Stmt.Block stmt) {
 		executeBlock(stmt.statements, new Environment(environment));
@@ -129,6 +130,23 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     // Unreachable.
     return null;
   }
+	@Override
+	  public Object visitCallExpr(Expr.Call expr) {
+	    Object callee = evaluate(expr.callee);
+
+	    List<Object> arguments = new ArrayList<>();
+	    for (Expr argument : expr.arguments) { 
+	      arguments.add(evaluate(argument));
+	    }
+	    
+	    if (!(callee instanceof HerbCallable)) {
+	        throw new RuntimeError(expr.paren,
+	            "Can only call functions and classes.");
+	      }
+
+	    HerbCallable function = (HerbCallable)callee;
+	    return function.call(this, arguments);
+	  }
 	@Override
 	public Object visitLiteralExpr(Expr.Literal expr) {
 		return expr.value;
