@@ -45,6 +45,7 @@ for (var g = 0; g < 3;) { g = g + 1; write g;}
 - One line block type.
 - Fixes and more functions.
 - More functions.
+- Function added.
 
 # Why Herb? :herb:
 Well from the start, Herb is an interpreted language made in Java, weakly typed and simple language, C and Javascript like syntax.
