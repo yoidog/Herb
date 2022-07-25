@@ -1,0 +1,3 @@
+// Run a herb script in IDE tutorial.
+write "If you want to run a herb script in IDE, for Eclipse go to run configurations then Java Applications then Herb then Common then Input file."
+ 
