@@ -62,6 +62,8 @@ The games would only be interactive by editing the source file.
 
 You can look for `scriptInteractiveGame.herb` in [yoidog/herbSamples](https://github.com/yoidog/herbSamples/tree/main/Samples).
 
+Or the improved version in [yoidog/scriptInteractiveGame](https://github.com/yoidog/scriptInteractiveGame).
+
 ## I keep getting errors trying to run Herb :herb: in terminal.
 Yes, yes, the same problem with the creator.
 
