@@ -34,9 +34,7 @@ for (var g = 0; g < 3;) { g = g + 1; write g;}
  
 ```
 # Other samples :herb:
-[yoidog/herbSamples](https://github.com/yoidog/herbSamples)
-
-[yoidog/herbVarMath](https://github.com/yoidog/herbVarMath)
+[yoidog/scriptInteractiveGame (IMPROVED)](https://github.com/yoidog/scriptInteractiveGame)
 
 # What's new? :herb: (in order through every version.)
 - Release.
