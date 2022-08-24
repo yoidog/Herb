@@ -46,19 +46,13 @@ for (var g = 0; g < 3;) { g = g + 1; write g;}
 - Function added.
 
 # Why Herb? :herb:
-Well from the start, Herb is an interpreted language made in Java, weakly typed and simple language, C and Javascript like syntax.
+Well from the start, Herb is an interpreted language made in Java, dynamically typed and simple language, C and Javascript like syntax.
 
 Can be indeed fun as much as you're using it, you can discover lots of stuff in herb.
 
 Maybe you can be self taught, well... up for a challenge? learn Herb without any tutorials or samples, well i showed you a sample script.
 
-But c'mon that's guessable, because of `C and Javascript` syntax, you would know how to declare a variable and make loops.
-
-Herb is a small language aswell, you can make games. (well not games exactly, without user input.)
-
-The games would only be interactive by editing the source file.
-
-[yoidog/scriptInteractiveGame](https://github.com/yoidog/scriptInteractiveGame).
+Herb is a small language aswell.
 
 ## I keep getting errors trying to run Herb :herb: in terminal.
 Yes, yes, the same problem with the creator.
