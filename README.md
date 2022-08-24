@@ -50,8 +50,6 @@ Well from the start, Herb is an interpreted language made in Java, dynamically t
 
 Can be indeed fun as much as you're using it, you can discover lots of stuff in herb.
 
-Maybe you can be self taught, well... up for a challenge? learn Herb without any tutorials or samples, well i showed you a sample script.
-
 Herb is a small language aswell.
 
 ## I keep getting errors trying to run Herb :herb: in terminal.
