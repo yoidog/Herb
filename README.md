@@ -3,7 +3,7 @@
 
 Herb is an interpreted language made in Java.
 
-Weakly typed and simple language, C and Javascript like syntax.
+Dynamically typed and simple language, C and Javascript like syntax.
 
 # Sample script :herb:
 ```
@@ -44,13 +44,6 @@ for (var g = 0; g < 3;) { g = g + 1; write g;}
 - Fixes and more functions.
 - More functions.
 - Function added.
-
-# Why Herb? :herb:
-Well from the start, Herb is an interpreted language made in Java, dynamically typed and simple language, C and Javascript like syntax.
-
-Can be indeed fun as much as you're using it, you can discover lots of stuff in herb.
-
-Herb is a small language aswell.
 
 ## I keep getting errors trying to run Herb :herb: in terminal.
 Yes, yes, the same problem with the creator.
