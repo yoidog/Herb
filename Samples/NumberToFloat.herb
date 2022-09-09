@@ -9,3 +9,4 @@ c = c / 10;
 write a;
 write b;
 write c;
+ 
