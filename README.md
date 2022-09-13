@@ -44,6 +44,7 @@ for (var g = 0; g < 3;) { g = g + 1; write g;}
 - Fixes and more functions.
 - More functions.
 - Function added.
+- Herb is now ready to be used.
 
 ## I keep getting errors trying to run Herb :herb: in terminal.
 Yes, yes, the same problem with the creator.
