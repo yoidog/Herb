@@ -51,4 +51,4 @@ Yes, yes, the same problem with the creator.
 
 The only way to fix this is to use an IDE.
 
-The creator uses Eclipse IDE, the simplest out there.
+The creator uses Eclipse IDE, the simplest one out there.
