@@ -1,0 +1,5 @@
+var a = 1;
+var b = 1;
+
+if (a == 1 and b == 1) { write "A and B are equal.";} else { write "None are equal.";}
+ 
