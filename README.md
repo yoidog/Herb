@@ -47,8 +47,8 @@ for (var g = 0; g < 3;) { g = g + 1; write g;}
 - Herb is Ready for use.
 
 ## I keep getting errors trying to run Herb :herb: in terminal.
-Yes, yes, the same problem with the creator.
+The same problem with the creator.
 
 The only way to fix this is to use an IDE.
 
-The creator uses Eclipse IDE, the simplest one out there.
+Eclipse IDE is recommended.
