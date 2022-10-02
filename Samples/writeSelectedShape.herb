@@ -1,0 +1,38 @@
+var shape = "triangle";
+
+if (shape == "triangle") {
+	write "  /\  ";
+	write " /  \ ";
+	write "/____\";
+}
+
+if (shape == "half_triangle") {
+	write "  /|";
+	write " / |";
+	write "/__|";
+}
+
+if (shape == "square") {
+	write " ------- ";
+	write "|       |";
+	write "|       |";
+	write "|       |";
+	write " ------- ";
+}
+
+if (shape == "circle") {
+	write "  -------  ";
+	write " /       \ ";
+	write "|         |";
+	write "|         |";
+	write "|         |";
+	write " \       / ";
+	write "  -------  ";
+}
+
+if (shape == "rectangle") {
+	write " -------------- ";
+	write "|              |";
+	write "|              |";
+	write " -------------- ";
+}

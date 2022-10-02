@@ -1,0 +1,7 @@
+var a;
+if (a == nul) {
+	write "Variable a is nul.";
+} else {
+	write "Variable a is not nul.";
+	write a;
+}

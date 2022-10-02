@@ -1,0 +1,11 @@
+// Fibonacci Numbers
+var max = 5000;
+var a = 1;
+var b = 1;
+
+while (a < max and b < max) {
+	write a;
+	a = a + b;
+	write b;
+	b = a + b;
+}

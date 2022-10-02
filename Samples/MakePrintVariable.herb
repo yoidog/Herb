@@ -1,0 +1,3 @@
+func MakePrintVariable(a, b) { var a = b; write a;}
+
+MakePrintVariable("my_variable", 5);

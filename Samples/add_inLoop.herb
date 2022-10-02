@@ -1,0 +1,4 @@
+var a = 0;
+var b = 0;
+while (a < 10) { a = a + 1; write "A:"; write a; b = b + a; write "B:"; write b;}
+ 

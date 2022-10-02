@@ -1,0 +1,15 @@
+var item0 = "eggs";
+var item1 = "milk";
+var item2 = "mustard";
+var item3 = "can of beans";
+var item4 = "rice";
+var item5 = "vegetables";
+
+write "Shopping List:";
+write item0;
+write item1;
+write item2;
+write item3;
+write item4;
+write item5;
+ 

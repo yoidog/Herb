@@ -1,0 +1,56 @@
+// Script interactive game.
+var walkCount = 0;
+var dayCount = 0;
+var slot0;
+var slot1;
+var slot2;
+func interact(a) {
+	if (a == "walk") {
+		walkCount = walkCount + 1;
+		write "You walked.";
+		write "Walk count.";
+		write walkCount;
+	}
+	if (a == "look") {
+		if (walkCount == 3) {
+			slot0 = "pile of dirt";
+			write "You found a pile of dirt, ehhh.";
+		} else {
+			write "You looked, but foundables aren't in sight.";
+		} 
+		if (walkCount == 7) {
+			slot1 = "gold";
+			write "You found gold!";
+		}
+		if (walkCount == 15) {
+			slot2 = "plant";
+			write "You found a plant!";
+		}
+	}
+	if (a == "inventory") {
+		write "Inventory slot 1:";
+		write slot0;
+		write "Inventory slot 2:";
+		write slot1;
+		write "Inventory slot 3:";
+		write slot2;
+	} 
+	if (a == "stat") {
+		write "Walk counts:";
+		write walkCount;
+		write "Day counts:";
+		write dayCount;
+	} 
+	if (a == "sleep") {
+		dayCount = dayCount + 1;
+		write "You slept.";
+		write "Day:";
+		write dayCount;
+	}
+}
+write "You can interact with this game inside the source file or the interactive interpreter!";
+interact("walk");
+interact("walk");
+interact("look");
+interact("inventory");
+interact("sleep");

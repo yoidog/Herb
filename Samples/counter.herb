@@ -1,0 +1,8 @@
+func count(e) {
+	if (e > 1) {
+		count(e - 1);
+	}
+	write e;
+}
+
+count(5);

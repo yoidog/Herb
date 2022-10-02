@@ -1,0 +1,11 @@
+var a = 1;
+var b = 6;
+
+if (a > 9 or b > 9){
+	write "Cannot turn more than 9 to Tens.";
+} else {
+	a = a + 10;
+	b = b + 10;
+	write a;
+	write b;
+}

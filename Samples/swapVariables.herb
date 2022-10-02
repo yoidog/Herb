@@ -1,0 +1,10 @@
+var a = 10; // Declare variable a
+var b = 2; // Declare variable b
+var c; // Declare variable c to store b
+
+c = b; // Store b in c so value won't get lost
+b = a; // b's value becomes a's value
+a = c; // a's value becomes b's old value
+
+write a; // Write variable a
+write b; // Write variable b
