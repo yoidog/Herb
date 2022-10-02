@@ -46,9 +46,12 @@ for (var g = 0; g < 3;) { g = g + 1; write g;}
 - Function added.
 - Herb is Ready for use.
 
-## I keep getting errors trying to run Herb :herb: in terminal.
-The same problem with the creator.
+## How to use/run Herb :herb: on Terminal?
+There is a file called TerminalRun.bat in the github repository.
 
-The only way to fix this is to use an IDE.
-
-Eclipse IDE is recommended.
+TerminalRun.bat:
+```
+javac herbLang\herb\herb.java
+java herbLang.herb.Herb
+```
+Remove `java herbLang.herb.Herb`, if you don't want to run Herb straight away.
