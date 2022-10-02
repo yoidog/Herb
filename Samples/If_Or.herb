@@ -1,5 +1,0 @@
-var a = 2;
-var b = 5;
-
-if (a == 2 or b == 5) { write "Hello World!";}
- 

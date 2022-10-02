@@ -1,8 +1,0 @@
-func Hello(){ write "Hello!";}
-
-func returnFunc(a){ return a();}
-
-func callFunc(){ returnFunc(Hello);}
-
-callFunc();
- 

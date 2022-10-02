@@ -1,3 +1,0 @@
-func add(a, b) { return a + b;}
-write add(5, 4);
- 
