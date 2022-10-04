@@ -33,8 +33,6 @@ if (e != f) { write "Variable e is not equal to variable f.";}
 for (var g = 0; g < 3;) { g = g + 1; write g;}
  
 ```
-# Other samples :herb:
-[yoidog/scriptInteractiveGame (IMPROVED)](https://github.com/yoidog/scriptInteractiveGame)
 
 # What's new? :herb: (in order through every version.)
 - Release.
